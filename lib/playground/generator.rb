@@ -75,6 +75,23 @@ module Playground
 
       File.write(@output + "/#{filename}", swift)
     end
+    
+    
+    def generate_empty(path, platform)
+      if path.nil?
+        # Create playground using current date as name
+        time = Time.now.strftime "%Y%m%d-%H%M%S"
+        path = "#{time}.playground"
+      end
+      # add extension if not provided
+      path += ".playground" unless /.playground$/.match(path)
+      FileUtils.mkdir_p(path)
+      file = path + "/contents.xcplayground"
+      # minimum xml so that Xcode recognizes it as a valid playground
+      contents_xcplayground = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><playground version='1.0' sdk='#{platform}'><sections><code source-file-name='section-1.swift'/></sections></playground>"
+      File.open(file, 'w') {|f| f.write(contents_xcplayground) }
+      `open #{path}`
+    end
 
     private
 
