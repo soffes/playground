@@ -90,7 +90,10 @@ module Playground
       # minimum xml so that Xcode recognizes it as a valid playground
       contents_xcplayground = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><playground version='1.0' sdk='#{platform}'><sections><code source-file-name='section-1.swift'/></sections></playground>"
       File.open(file, 'w') {|f| f.write(contents_xcplayground) }
-      `open #{path}`
+      # Open with Xcode
+      if !system("open \"#{path}\" 2>/dev/null")
+        puts "There was an error opening #{path}"
+      end
     end
 
     private
