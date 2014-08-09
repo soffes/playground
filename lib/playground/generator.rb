@@ -81,9 +81,9 @@ module Playground
       if path.nil?
         # Create playground using current date as name
         time = Time.now.strftime "%Y%m%d-%H%M%S"
-        path = "#{time}.playground"
+        path = "/tmp/playgrounds/#{time}.playground"
       end
-      # add extension if not provided
+      # Add extension if not provided
       path += ".playground" unless /.playground$/.match(path)
       FileUtils.mkdir_p(path)
       file = path + "/contents.xcplayground"
